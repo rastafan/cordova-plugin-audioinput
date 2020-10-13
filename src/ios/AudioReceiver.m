@@ -162,8 +162,8 @@ void HandleInputBuffer(void* inUserData,
       [self hasError:status:__FILE__:__LINE__];
 
     } else { /* recording direct to file */
-
-      NSDictionary *recordingSettings = @{AVFormatIDKey : @(kAudioFormatLinearPCM),
+      // NSDictionary *recordingSettings = @{AVFormatIDKey : @(kAudioFormatLinearPCM),
+      NSDictionary *recordingSettings = @{AVFormatIDKey : @(kAudioFormatMPEGLayer3),
                                         AVNumberOfChannelsKey : @(_recordState.mDataFormat.mChannelsPerFrame),
                                         AVSampleRateKey : @(_recordState.mDataFormat.mSampleRate),
                                         AVLinearPCMBitDepthKey : @(16),

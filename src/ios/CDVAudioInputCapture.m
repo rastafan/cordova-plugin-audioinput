@@ -39,7 +39,7 @@
 - (void)initialize:(CDVInvokedUrlCommand*)command
 {
     _fileUrl = [command.arguments objectAtIndex:5];
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:nil];
+    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"OK"];
     [result setKeepCallbackAsBool:NO];
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
@@ -104,14 +104,14 @@
     [self.commandDelegate runInBackground:^{
         [self.audioReceiver stop];
 
-        if (self.callbackId) {
+        if (command.callbackId) {
             CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:0.0f];
 	    /* if we are recording directly to file, we want to keep the callback */
-            [result setKeepCallbackAsBool:(_fileUrl == nil?NO:YES)];
-            [self.commandDelegate sendPluginResult:result callbackId:self.callbackId];
+            [result setKeepCallbackAsBool:(self->_fileUrl == nil?NO:YES)];
+            [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
         }
 
-	if (_fileUrl == nil) {
+        if (self->_fileUrl == nil) {
 	  self.callbackId = nil;
 	}
     }];
